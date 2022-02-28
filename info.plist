@@ -621,7 +621,9 @@
 				<key>script</key>
 				<string>require "json"
 
-devices = `/opt/homebrew/bin/switchaudiosource -a`.split(/\n/).map {|device_name| { title: device_name, subtitle: device_name, arg: device_name, autocomplete: device_name, match: device_name }}
+audioswitch = ENV["audioswitch_path"]
+
+devices = `#{audioswitch} -a`.split(/\n/).map {|device_name| { title: device_name, subtitle: device_name, arg: device_name, autocomplete: device_name, match: device_name }}
 
 json = { items: devices }.to_json
 
@@ -918,7 +920,8 @@ then
 	/opt/homebrew/bin/bluetoothconnector -c 78-2b-64-61-cc-95
 fi
 
-/opt/homebrew/bin/switchaudiosource -s "$query"</string>
+
+$audioswitch_path -s "$query"</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
@@ -1004,7 +1007,8 @@ fi
 				<key>script</key>
 				<string>require "json"
 
-devices = `/opt/homebrew/bin/switchaudiosource -a`.split(/\n/).map {|device_name| { title: device_name, subtitle: device_name, arg: device_name, autocomplete: device_name, match: device_name }}
+audioswitch = ENV["audioswitch_path"]
+devices = `#{audioswitch} -a`.split(/\n/).map {|device_name| { title: device_name, subtitle: device_name, arg: device_name, autocomplete: device_name, match: device_name }}
 
 json = { items: devices }.to_json
 
@@ -1404,11 +1408,11 @@ Requires switchaudiosource to be installed with `brew install switchaudio-osx`</
 	<array>
 		<string>audioswitch_path</string>
 		<string>headphones_device</string>
-		<string>speakers_device</string>
 		<string>external_device</string>
+		<string>speakers_device</string>
 	</array>
 	<key>version</key>
-	<string>0.4.0</string>
+	<string>0.4.1</string>
 	<key>webaddress</key>
 	<string>Credit to https://agileadam.com/2020/05/switch-audio-input-output-device-using-alfred/</string>
 </dict>
